@@ -1,0 +1,66 @@
+openapi: 3.1.0
+info:
+  title: Legal State Engine API
+  version: "1.0.0"
+servers:
+  - url: https://REPLACE-WITH-YOUR-RENDER-URL
+security:
+  - ApiKeyAuth: []
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+paths:
+  /v1/legal-state/evaluate:
+    post:
+      operationId: evaluateLegalState
+      summary: Evaluate legal state and constraints.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /v1/legal-state/assent:
+    post:
+      operationId: recordUserAssent
+      summary: Record explicit user assent.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /v1/legal-state/profile/generate:
+    post:
+      operationId: generateCapabilityProfile
+      summary: Generate a capability profile (optional).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
