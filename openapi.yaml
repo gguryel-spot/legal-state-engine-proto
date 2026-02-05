@@ -2,27 +2,44 @@ openapi: 3.1.0
 info:
   title: Legal State Engine API
   version: "1.0.0"
+
 servers:
-  - url: https://REPLACE-WITH-YOUR-RENDER-URL
-security:
-  - ApiKeyAuth: []
+  - url: https://legal-state-engine-proto.onrender.com
+
 components:
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       in: header
       name: X-API-Key
+
+security:
+  - ApiKeyAuth: []
+
 paths:
   /v1/legal-state/evaluate:
     post:
       operationId: evaluateLegalState
-      summary: Evaluate legal state and constraints.
+      summary: Evaluate legal state and constraints
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
+              properties:
+                request_id:
+                  type: string
+                app_id:
+                  type: string
+                session_id:
+                  type: string
+                event_type:
+                  type: string
+                user_message:
+                  type: string
+                assent_token:
+                  type: string
       responses:
         "200":
           description: OK
@@ -30,16 +47,28 @@ paths:
             application/json:
               schema:
                 type: object
+
   /v1/legal-state/assent:
     post:
       operationId: recordUserAssent
-      summary: Record explicit user assent.
+      summary: Record explicit user assent
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
+              properties:
+                request_id:
+                  type: string
+                app_id:
+                  type: string
+                session_id:
+                  type: string
+                scope:
+                  type: string
+                user_assent_signal:
+                  type: string
       responses:
         "200":
           description: OK
@@ -47,16 +76,24 @@ paths:
             application/json:
               schema:
                 type: object
+
   /v1/legal-state/profile/generate:
     post:
       operationId: generateCapabilityProfile
-      summary: Generate a capability profile (optional).
+      summary: Generate a capability profile
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
+              properties:
+                request_id:
+                  type: string
+                app_id:
+                  type: string
+                app_description:
+                  type: string
       responses:
         "200":
           description: OK
